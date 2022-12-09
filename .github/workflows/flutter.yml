@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  print_flutter_version:
+  flutter_test:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,4 +17,8 @@ jobs:
           flutter-version: '3.3.9'
           channel: 'stable'
       - run: flutter --version
+      - run: flutter pub get
+      - run: flutter test
+      
+      
       
