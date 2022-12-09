@@ -22,8 +22,8 @@ jobs:
       - run: flutter test
       
       
-  flutter_build_android:
-    name: Build for android
+  flutter_build_apk:
+    name: Build for android APK
     runs-on: ubuntu-latest
     needs: flutter_test
     
@@ -39,6 +39,25 @@ jobs:
         with:
           name: my-app-apk
           path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 7
+          
+  flutter_build_appbundle:
+    name: Build for android AppBundle
+    runs-on: ubuntu-latest
+    needs: flutter_test
+    
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.3.9'
+          channel: 'stable'
+      - run: flutter pub get
+      - run: flutter build appbundle
+      - uses: actions/upload-artifact@v3
+        with:
+          name: my-app-appbundle
+          path: build/app/outputs/bundle/release/app-release.aab
           retention-days: 7
       
       
